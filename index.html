@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Rock Paper Scissors - The Odin Project</title>
+</head>
+<body>
+    
+    <script>
+
+        function computerPlay(){
+            //declare a variable to store a number
+            //declare variable to store string (computer choice)
+
+            //output a random number 1 to 3 and store it declared variable
+            //associate numbers 1 to 3 to each string 'rock', 'paper' and 'scissors'
+                //number is 1 --> string is "rock"
+                //number is 2 --> string is "paper"
+                //number is 3 --> string is "scissors"
+            
+            //return computer choice
+        }
+
+        function playRound(playerSelection, computerSelection){
+            
+            //declare variable to store round score, starts at 0.
+
+            //compare playerSelection to computerSelection (case-insensitive):
+                
+                //computerSelection is rock
+                    //playerSelection is paper --> player wins, score +1
+                    //playerSelection is scissors --> computer wins
+                //computerSelection is paper
+                    //playerSelection is scissors --> player wins, score +1
+                    //playerSelection is rock --> computer wins
+                //computerSelection is scissors
+                    //playerSelection is rock --> player wins, score +1
+                    //playerSelection is paper --> computer wins
+
+
+            //return round score
+        }
+
+        function game(){
+            
+            //declare variable to store string written by player via prompt (playerChoice)
+            //declare variable to store total score, starts at 0
+            //declare variable to store result message
+
+            //set a loop to play the game 5 times
+                //ask input to user - with prompt()
+                //input is "rock", "paper" or "scissors"
+                    //call function playRound (arguments playerChoice and computerChoice)
+                    //add player score to total score
+                    //console.log result at the end of round based on round score
+                        //round score is 1 --> playerChoice beats computerChoice, player wins
+                        //round score is 0 --> computerChoice beats playerChoice, computer wins
+                //input is not "rock", "paper" or "scissors" --> error message and i--?
+
+            //evaluate total score
+                //total score is greater than 2    --> message = player wins
+                //total score is 0                 --> message = draw
+                //else                             --> message = computer wins
+
+            //console.log result message at the end of the game
+        }
+
+    </script>
+
+</body>
+</html>
