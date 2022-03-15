@@ -12,15 +12,34 @@
 
         function computerPlay(){
             //declare a variable to store a number
+            let randomNumber;
             //declare variable to store string (computer choice)
+            let computerChoice;
 
             //output a random number 1 to 3 and store it declared variable
-            //associate numbers 1 to 3 to each string 'rock', 'paper' and 'scissors'
-                //number is 1 --> string is "rock"
-                //number is 2 --> string is "paper"
-                //number is 3 --> string is "scissors"
-            
-            //return computer choice
+            randomNumber = Math.floor(Math.random()*3) + 1;
+
+            //change computerChoice value based on randomNumber result
+                
+                switch(randomNumber){
+                    //number is 1 --> string is "rock"
+                    case 1: 
+                        computerChoice = "rock";
+                        break;
+                    //number is 2 --> string is "paper"
+                    case 2: 
+                        computerChoice = "paper";
+                        break;
+                    //number is 3 --> string is "scissors"
+                    case 3: 
+                        computerChoice = "scissors";
+                        break;
+                    default:
+                        computerChoice = "ERROR - unexpected computer choice!";
+                }
+                  
+            //return string computer choice
+            return computerChoice;
         }
 
         function playRound(playerSelection, computerSelection){
