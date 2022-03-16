@@ -9,81 +9,156 @@
 <body>
     
     <script>
-
+        //a function that generates a random number 1 to 3, associates a string to each case and returns it
         function computerPlay(){
             //declare a variable to store a number
             let randomNumber;
             //declare variable to store string (computer choice)
-            let computerChoice;
+            let randomChoice;
 
             //output a random number 1 to 3 and store it declared variable
             randomNumber = Math.floor(Math.random()*3) + 1;
 
-            //change computerChoice value based on randomNumber result
+            //change randomChoice value based on randomNumber value
                 
                 switch(randomNumber){
                     //number is 1 --> string is "rock"
                     case 1: 
-                        computerChoice = "rock";
+                    randomChoice = "rock";
                         break;
                     //number is 2 --> string is "paper"
                     case 2: 
-                        computerChoice = "paper";
+                    randomChoice = "paper";
                         break;
                     //number is 3 --> string is "scissors"
                     case 3: 
-                        computerChoice = "scissors";
+                    randomChoice = "scissors";
                         break;
+                    //default case: for debug purpose
                     default:
-                        computerChoice = "ERROR - unexpected computer choice!";
+                    randomChoice = "ERROR - unexpected computer choice!";
                 }
                   
-            //return string computer choice
-            return computerChoice;
+            //return string with a random computer choice
+            return randomChoice;
         }
 
+        //function that compares two values, then returns a string with round result ("player", "computer" or "draw")
         function playRound(playerSelection, computerSelection){
             
-            //declare variable to store round score, starts at 0.
+            //declare variable to store round result
+            let roundResult;
 
-            //compare playerSelection to computerSelection (case-insensitive):
-                
-                //computerSelection is rock
-                    //playerSelection is paper --> player wins, score +1
-                    //playerSelection is scissors --> computer wins
-                //computerSelection is paper
-                    //playerSelection is scissors --> player wins, score +1
-                    //playerSelection is rock --> computer wins
-                //computerSelection is scissors
-                    //playerSelection is rock --> player wins, score +1
-                    //playerSelection is paper --> computer wins
+            //compare playerSelection to computerSelection:
+                //computerSelection is the same as playerSelection
+                if(computerSelection == playerSelection){
+                    roundResult = "draw";
+                }else{                
+                    //computerSelection is rock
+                    if(computerSelection == "rock"){
+                        //playerSelection is paper --> player wins
+                        if(playerSelection == "paper"){
+                            roundResult = "player";
+                        //playerSelection is scissors --> computer wins
+                        }else{
+                            roundResult = "computer";
+                        }
+                    //computerSelection is paper
+                    }else if(computerSelection == "paper"){
+                        //playerSelection is scissors --> player wins
+                        if(playerSelection == "scissors"){
+                            roundResult = "player";
+                        //playerSelection is rock --> computer wins
+                        }else{
+                            roundResult = "computer";
+                        }
+                    //computerSelection is scissors
+                    }else if(computerSelection == "scissors"){
+                        //playerSelection is rock --> player wins
+                        if(playerSelection == "rock"){
+                            roundResult = "player";
+                        //playerSelection is paper --> computer wins
+                        }else{
+                            roundResult = "computer";
+                        }
+                    }
+                }
 
-
-            //return round score
+            //return winner
+            return roundResult;
         }
-
+        
         function game(){
             
-            //declare variable to store string written by player via prompt (playerChoice)
-            //declare variable to store total score, starts at 0
-            //declare variable to store result message
+            //declare variable to store string with player choice
+            let playerChoice;
+            //declare variable to store string with computer choice
+            let computerChoice;
+            //declare variable to store player score, starts at 0
+            let playerScore = 0;
+            //declare variable to store computer score, starts at 0
+            let computerScore = 0;
+            //declare variable to store number of draws, starts at 0
+            let drawCounter = 0;            
+            //declare variable to store round winner
+            let winner;
 
             //set a loop to play the game 5 times
-                //ask input to user - with prompt()
-                //input is "rock", "paper" or "scissors"
-                    //call function playRound (arguments playerChoice and computerChoice)
-                    //add player score to total score
-                    //console.log result at the end of round based on round score
-                        //round score is 1 --> playerChoice beats computerChoice, player wins
-                        //round score is 0 --> computerChoice beats playerChoice, computer wins
-                //input is not "rock", "paper" or "scissors" --> error message and i--?
+            for(let i=0; i<5; i++){
+                //declare variable to store round number
+                let round = i+1+drawCounter;
+                //output current score (round start message)
+                console.log(`Current score: Player ${playerScore} - Computer ${computerScore}. Make a choice:`);            
+                //get user input via prompt() - transform to lower case to make it case-insensitive
+                playerChoice = prompt("Write 'rock', 'paper' or 'scissors'.").toLowerCase();
+                //"Let computer pick": get value returned from function "computerPlay()" and store it to computerChoice
+                computerChoice = computerPlay();
+                //user input is "rock", "paper" or "scissors"?
+                if (playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors"){
+                    //call function playRound with playerChoice and computerChoice as arguments, store returned value to "winner"
+                    winner = playRound(playerChoice, computerChoice);
+                    //output round choices
+                    console.log(`Round ${round}. Player chose "${playerChoice}" - Computer chose "${computerChoice}"`);
+                    //evaluate round winner, output a message and change score based on evaluation result
+                    switch(winner){
+                        //winner is player --> playerChoice beats computerChoice, player wins, player score +1
+                        case "player":
+                            console.log(`"${playerChoice}" beats "${computerChoice}". Player wins round ${round} !`);
+                            playerScore += 1;
+                            break;
+                        //winner is computer --> computerChoice beats playerChoice, computer wins, computer score +1
+                        case "computer":
+                            console.log(`"${computerChoice}" beats "${playerChoice}". Computer wins round ${round}!`);
+                            computerScore += 1;
+                            break;
+                        //it's a draw --> output "it's a draw", draw counter +1, lower loop counter by 1 (i--) so draws don't count as a round
+                        case "draw":
+                            console.log(`Round ${round} doesn't count! It's a draw!`);
+                            drawCounter += 1;
+                            i--;
+                            break;
+                        //default case: for debug purpose
+                        default:
+                            console.log(`An error occurred - Unknown result - Switch default message`);
+                    }  
+                //user input is not "rock", "paper" or "scissors" --> output error message and lower loop counter by 1 (i--)  
+                }else{                
+                alert("You must select 'rock', 'paper' or 'scissors'!");
+                i--;
+                }
+            }
 
-            //evaluate total score
-                //total score is greater than 2    --> message = player wins
-                //total score is 0                 --> message = draw
-                //else                             --> message = computer wins
-
-            //console.log result message at the end of the game
+            //evaluate final scores and output result to console
+                //player score is greater than computer score --> player wins
+            if(playerScore > computerScore){
+                console.log(`Player ${playerScore} - Computer ${computerScore}. Draws ${drawCounter}. PLAYER WINS THE GAME!`);            
+                //computer score greater than computer score  --> computer wins
+            }else if(playerScore < computerScore){
+                console.log(`Player ${playerScore} - Computer ${computerScore}. Draws ${drawCounter}. Computer wins the game. TRY AGAIN!`);
+                //scores are the same                         --> draw                
+            }else if(playerScore == computerScore){
+                console.log(`Player ${playerScore} - Computer ${computerScore}. Draws ${drawCounter}. It's a draw!`);
+            }
         }
 
     </script>
